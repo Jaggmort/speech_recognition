@@ -4,14 +4,12 @@ import dialog_flow
 import logging
 import vk_api
 import urllib
+import telegram
 
+from dialog_flow import TelegramLogsHandler
 from vk_api.longpoll import VkLongPoll, VkEventType
 from dotenv import load_dotenv
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
-)
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +35,16 @@ def main():
     vk_chat_token = os.getenv('VK_CHAT_TOKEN')
     vk_session = vk_api.VkApi(token=vk_chat_token)
     longpoll = VkLongPoll(vk_session)
+
+    tg_announce_token = os.environ['TG_ANNOUNCE_TOKEN']
+    tg_announce_bot = telegram.Bot(tg_announce_token)
+    tg_announce_id = os.environ['TELEGRAM_USER_ID']
+    logger_settings = TelegramLogsHandler(tg_announce_bot, tg_announce_id)
+    logger_settings.setLevel(logging.INFO)
+    logger_settings.setFormatter(
+        logging.Formatter("%(asctime)s: %(levelname)s; %(message)s")
+        )
+    logger.addHandler(logger_settings)
 
     project_id = os.getenv('GOOGLE_CLOUD_PROJECT')
     for event in longpoll.listen():
