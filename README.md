@@ -19,7 +19,11 @@
 
 - Скачайте код
 - Создайте и заполните файл с переменными окружения, активируйте виртуальное окружение: `python -m venv venv`
+Активируйте его. На разных операционных системах это делается разными командами:
+
 - Windows: `.\venv\Scripts\activate`
+- MacOS/Linux: `source venv/bin/activate`
+  
 - Установите зависимости командой `pip install -r requirements.txt`
 - Запустите ботов - командой `python tg.py` / `python vk.py`
 
