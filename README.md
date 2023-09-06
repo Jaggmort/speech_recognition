@@ -51,7 +51,7 @@
 
 Пример диалога:
 
-[Пример](https://imgur.com/a/ICFZN3q)
+[Пример](files://C:/Work_py/speech.jpg)
 
 ## Цели проекта
 
