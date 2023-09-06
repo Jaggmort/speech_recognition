@@ -1,13 +1,13 @@
 import os
+import logging
 
 import dialog_flow
 import dotenv
-import logging
 import telegram
 
-from dialog_flow import TelegramLogsHandler
 from telegram import Update
 from telegram.ext import Updater, MessageHandler, Filters, CallbackContext
+from telegram_log import TelegramLogsHandler
 
 
 logger = logging.getLogger(__name__)
@@ -22,8 +22,7 @@ def answer(update: Update, context: CallbackContext) -> None:
         update.message.text,
         'ru'
         )
-    if not is_fallback:
-        update.message.reply_text(msg)
+    update.message.reply_text(msg)
 
 
 def main() -> None:

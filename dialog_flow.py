@@ -1,27 +1,9 @@
 import argparse
 import json
-import logging
 import os
 
-from google.cloud import dialogflow
 from dotenv import load_dotenv
-
-
-class TelegramLogsHandler(logging.Handler):
-    def __init__(self, bot, user_id):
-        super().__init__()
-        self.bot = bot
-        self.user_id = user_id
-
-    def emit(self, record):
-        log_entry = self.format(record)
-        self.bot.send_message(self.user_id, log_entry)
-
-
-def get_questions_from_file(file_name):
-    with open(file_name, "r", encoding="UTF-8") as questions_file:
-        questions = json.loads(questions_file.read())
-    return questions
+from google.cloud import dialogflow
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
@@ -83,7 +65,8 @@ def main():
         help='Подготовленный .json - файл'
     )
     project_id = os.getenv('GOOGLE_CLOUD_PROJECT')
-    questions_array = get_questions_from_file(parser.parse_args().file_name)
+    with open(parser.parse_args().file_name, "r", encoding="UTF-8") as questions_file:
+        questions_array = json.loads(questions_file.read())
     for question_subject, questions in questions_array.items():
         create_intent(
             project_id,

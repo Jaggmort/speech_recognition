@@ -1,14 +1,15 @@
+import logging
 import os
+import random
 
 import dialog_flow
-import logging
-import vk_api
-import urllib
 import telegram
+import urllib
+import vk_api
 
-from dialog_flow import TelegramLogsHandler
-from vk_api.longpoll import VkLongPoll, VkEventType
 from dotenv import load_dotenv
+from telegram_log import TelegramLogsHandler
+from vk_api.longpoll import VkLongPoll, VkEventType
 
 
 logger = logging.getLogger(__name__)
@@ -26,7 +27,7 @@ def answer(event, vk_session, project_id):
             'messages.send',
             {'user_id': event.user_id,
              'message': intent_text,
-             'random_id': 0}
+             'random_id': random.randint(1, 1000)}
              )
 
 
