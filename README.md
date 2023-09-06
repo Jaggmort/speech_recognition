@@ -51,7 +51,7 @@
 
 Пример диалога:
 
-[Пример](files:\\C:\Work_py\speech.jpg)
+[Пример](C:\Work_py\speech.jpg)
 
 ## Цели проекта
 
